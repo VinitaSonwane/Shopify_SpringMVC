@@ -40,7 +40,7 @@ public class AccountController {
 	
 	//Deposit REST API
 	@PutMapping("/{id}/deposit")
-	public ResponseEntity<AccountDto> deposit(@PathVariable Long id , Map<String , Double > request ){
+	public ResponseEntity<AccountDto> deposit(@PathVariable Long id , @RequestBody  Map<String , Double > request ){
 		
 		Double amount = request.get("amount");
 		AccountDto accountDto = accountService.deposit(id, amount);
