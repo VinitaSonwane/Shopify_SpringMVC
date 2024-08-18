@@ -7,7 +7,7 @@ import javax.persistence.Id;
 public class Student {
 
 	@Id
-	private Long rollNo; 
+	private int rollNo; 
     private String firstName; 
     private String lastName; 
     private String email;
@@ -26,7 +26,7 @@ public class Student {
 
 
 
-	public Student(Long rollNo, String firstName, String lastName, String email, String phoneNumber, String dateOfBirth,
+	public Student(int rollNo, String firstName, String lastName, String email, String phoneNumber, String dateOfBirth,
 			String gender, String address, String enrollmentDate, String department, String className, String year) {
 		super();
 		this.rollNo = rollNo;
@@ -43,11 +43,11 @@ public class Student {
 		this.year = year;
 	}
 
-	public Long getRollNo() {
+	public int getRollNo() {
 		return rollNo;
 	}
 
-	public void setRollNo(Long rollNo) {
+	public void setRollNo(int rollNo) {
 		this.rollNo = rollNo;
 	}
 

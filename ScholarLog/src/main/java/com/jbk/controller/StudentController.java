@@ -36,19 +36,21 @@ public String addStudent(@RequestBody Student student) {
 	
 }
 
-@GetMapping("/get-student-by-id/{id}")
-	public Student getStudentById(@PathVariable Long id) {
+@GetMapping("/get-student-by-id/{rollNo}")
+	public Student getStudentById(@PathVariable int id) {
 		return null;
 	
 }
-@PutMapping("/update-student")
-public Student updateStudent(@RequestBody Student student) {
-	return student;
+@PutMapping("/update-student/{rollNo}")
+public Student updateStudent(@PathVariable int rollNo , @RequestBody Student student) {
+	return service.updateStudent(rollNo , student);
 	
 }
-@DeleteMapping("/delete-student/{id}")
-public Student deleteStudentById(@PathVariable Long id) {
-	return null;
+@DeleteMapping("/delete-student/{rollNo}")
+public Student deleteStudentById(@PathVariable int rollNo) {
+	 Student msg = service.deleteStudentById(rollNo);
+	return msg;
+	 
 	
 }
 
