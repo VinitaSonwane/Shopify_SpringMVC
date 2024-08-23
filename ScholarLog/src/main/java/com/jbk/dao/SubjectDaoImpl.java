@@ -1,35 +1,37 @@
 package com.jbk.dao;
 
 import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.jbk.entity.Student;
+
+import com.jbk.entity.Subject;
 
 @Repository
-public class StudentDaoImpl implements StudentDao {
+public class SubjectDaoImpl implements SubjectDao {
 
     @Autowired
     private SessionFactory factory;
 
     @Override
-    public String addStudent(Student student) {
+    public String addSubject(Subject subject) {
         try (Session session = factory.openSession()) {
             session.beginTransaction();
-            session.save(student);
+            session.save(subject);
             session.getTransaction().commit();
-            return "Data Added";
+            return "Subject Added";
         } catch (Exception e) {
             e.printStackTrace();
-            return "Failed to add data";
+            return "Failed to add subject";
         }
     }
 
     @Override
-    public List<Student> getAllStudent() {
+    public List<Subject> getAllSubjects() {
         try (Session session = factory.openSession()) {
-            return session.createQuery("from Student", Student.class).list();
+            return session.createQuery("from Subject", Subject.class).list();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -37,45 +39,47 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public Student updateStudent(int rollNo, Student student) {
+    public Subject getSubjectById(Long id) {
+        try (Session session = factory.openSession()) {
+            return session.get(Subject.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    @Override
+    public Subject updateSubject(Subject subject) {
         try (Session session = factory.openSession()) {
             session.beginTransaction();
-            session.update(student);
+            session.update(subject);
             session.getTransaction().commit();
-            return student;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    
-    @Override
-    public Student getStudentById(int rollNo) {
-        try (Session session = factory.openSession()) {
-            return session.get(Student.class, rollNo);
+            return subject;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
+
+
+
     @Override
-    public String deleteStudentById(int rollNo) {
+    public String deleteSubject(Long id) {
         try (Session session = factory.openSession()) {
             session.beginTransaction();
-            Student student = session.get(Student.class, rollNo);
-            if (student != null) {
-                session.delete(student);
+            Subject subject = session.get(Subject.class, id);
+            if (subject != null) {
+                session.delete(subject);
                 session.getTransaction().commit();
-                return "deleted...";
+                return "Subject Deleted";
             } else {
-                return null;
+                return "Subject not found";
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return "Failed to delete subject";
         }
     }
-
-    
 }
